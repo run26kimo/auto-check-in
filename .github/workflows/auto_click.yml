@@ -1,0 +1,32 @@
+name: Auto Click
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # 每 10 分鐘執行一次
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'  # 確保這裡的版本與你的開發環境一致
+
+    - name: Install dependencies
+      run: |
+        gem install selenium-webdriver
+        gem install json
+
+    - name: Run auto_click script
+      env:
+        LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+        LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+        BIPOID: ${{ secrets.BIPOID }}
+        BIPOPASSWORD: ${{ secrets.BIPOPASSWORD }}
+      run: |
+        ruby auto_click.rb 
