@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -20,7 +20,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        gem install selenium-webdriver
+        gem install selenium-webdriver headless
         gem install json
 
     - name: Run auto_click script

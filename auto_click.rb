@@ -44,6 +44,9 @@ options = Selenium::WebDriver::Chrome::Options.new
 
 Dir.mktmpdir do |dir|
   options.add_argument("--user-data-dir=#{dir}")
+  options.add_argument(' - headless')
+  options.add_argument(' - no-sandbox')
+  options.add_argument(' - disable-dev-shm-usage')
   driver = Selenium::WebDriver.for :chrome, options: options
   
   begin
