@@ -3,6 +3,7 @@ name: Auto Click
 on:
   schedule:
     - cron: '*/1 * * * *'  # 每 10 分鐘執行一次
+  workflow_dispatch:
 
 jobs:
   run-script:
