@@ -3,6 +3,8 @@ require 'open-uri'
 require 'net/http'
 require 'uri'
 require 'json'
+require 'tmpdir'
+
 HOME_URL = "https://ap17.bipocloud.com/SLL/Login"
 
 
@@ -39,38 +41,44 @@ end
 
 
 options = Selenium::WebDriver::Chrome::Options.new
-driver = Selenium::WebDriver.for :chrome, options: options
-begin
-  driver.navigate.to HOME_URL
 
-  # login 
-  login_input = driver.find_element(id: 'txtLoginID')
-  login_input.send_keys(ENV['BIPOID'])
-  login_input = driver.find_element(id: 'txtPassword')
+Dir.mktmpdir do |dir|
+  options.add_argument("--user-data-dir=#{dir}")
+  driver = Selenium::WebDriver.for :chrome, options: options
   
-  login_input.send_keys(ENV['BIPOPASSWORD'])
-  driver.find_element(id: 'btnLogin').click
-
-  sleep(2)
-  # goto clock page
-  url = 'https://ap17.bipocloud.com/SLL/EMP/SSApp/?id=87FEFE3129B85A9C'
-  driver.navigate.to url
-
+  begin
+    driver.navigate.to HOME_URL
   
-  sleep(2)
-  # Selenium::WebDriver::Wait.new(timeout: 10).until { driver.find_element(:id,  'btnClock') }.click
-
-
-  line_message = []
-  clocking_history = driver.find_element(:id, 'ClockingHistory').text
+    # login 
+    login_input = driver.find_element(id: 'txtLoginID')
+    login_input.send_keys(ENV['BIPOID'])
+    login_input = driver.find_element(id: 'txtPassword')
+    
+    login_input.send_keys(ENV['BIPOPASSWORD'])
+    driver.find_element(id: 'btnLogin').click
   
-  line_message << clocking_history
-  line_message << "  \n\n"
-  line_message << "Check-in completed. #{Time.now}"
-  puts line_message.join('')
-  send_line_notification(line_message.join(''))
-
-ensure
-
-  driver.quit
+    sleep(2)
+    # goto clock page
+    url = 'https://ap17.bipocloud.com/SLL/EMP/SSApp/?id=87FEFE3129B85A9C'
+    
+    driver.navigate.to url
+  
+    
+    sleep(2)
+    # Selenium::WebDriver::Wait.new(timeout: 10).until { driver.find_element(:id,  'btnClock') }.click
+  
+  
+    line_message = []
+    clocking_history = driver.find_element(:id, 'ClockingHistory').text
+    
+    line_message << clocking_history
+    line_message << "  \n\n"
+    line_message << "Check-in completed. #{Time.now}"
+    puts line_message.join('')
+    send_line_notification(line_message.join(''))
+  
+  ensure
+  
+    driver.quit
+  end
 end
