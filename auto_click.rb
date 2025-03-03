@@ -42,8 +42,9 @@ end
 
 options = Selenium::WebDriver::Chrome::Options.new
 
-Dir.mktmpdir do |dir|
-  options.add_argument("--user-data-dir=#{dir}")
+# Dir.mktmpdir do |dir|
+#   unique_dir = "#{dir}_#{Time.now.to_i}"
+#   options.add_argument("--user-data-dir=#{unique_dir}")
   options.add_argument(' - headless')
   options.add_argument(' - no-sandbox')
   options.add_argument(' - disable-dev-shm-usage')
@@ -84,4 +85,4 @@ Dir.mktmpdir do |dir|
   
     driver.quit
   end
-end
+# end
