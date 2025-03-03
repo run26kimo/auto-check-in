@@ -1,8 +1,9 @@
 name: Auto Click
 
 on:
-  # schedule:
-    # - cron: '*/1 * * * *'  # 每 10 分鐘執行一次
+  schedule:
+    - cron: '0 2 * * *'  # 每天早上 10 點 (UTC+8) 執行一次
+    - cron: '0 11 * * *'  # 每天下午 7 點 (UTC+8) 執行一次
   workflow_dispatch:
 
 jobs:
