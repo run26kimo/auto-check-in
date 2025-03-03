@@ -14,15 +14,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0'  # 確保這裡的版本與你的開發環境一致
+    # - name: Set up Ruby
+    #   uses: ruby/setup-ruby@v1
+    #   with:
+    #     ruby-version: '3.0'  # 確保這裡的版本與你的開發環境一致
 
-    - name: Install dependencies
-      run: |
-        gem install selenium-webdriver headless
-        gem install json
+    # - name: Install dependencies
+    #   run: |
+    #     gem install selenium-webdriver headless
+    #     gem install json
 
     - name: Run auto_click script
       env:
