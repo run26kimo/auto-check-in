@@ -41,7 +41,6 @@ end
 
 
 options = Selenium::WebDriver::Chrome::Options.new
-
 Dir.mktmpdir do |dir|
   unique_dir = "#{dir}_#{Time.now.to_i}"
   options.add_argument("--user-data-dir=#{unique_dir}")
@@ -61,15 +60,16 @@ Dir.mktmpdir do |dir|
     login_input.send_keys(ENV['BIPOPASSWORD'])
     driver.find_element(id: 'btnLogin').click
   
-    sleep(2)
+    sleep(rand(5..10))
     # goto clock page
     url = 'https://ap17.bipocloud.com/SLL/EMP/SSApp/?id=87FEFE3129B85A9C'
-    
     driver.navigate.to url
   
-    
-    sleep(2)
-    # Selenium::WebDriver::Wait.new(timeout: 10).until { driver.find_element(:id,  'btnClock') }.click
+
+
+
+    sleep(rand(10..120))
+    Selenium::WebDriver::Wait.new(timeout: 10).until { driver.find_element(:id,  'btnClock') }.click
   
   
     line_message = []
@@ -82,7 +82,6 @@ Dir.mktmpdir do |dir|
     send_line_notification(line_message.join(''))
   
   ensure
-  
     driver.quit
   end
 end
