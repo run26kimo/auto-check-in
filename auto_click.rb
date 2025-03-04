@@ -71,7 +71,7 @@ Dir.mktmpdir do |dir|
     sleep(rand(10..120))
     Selenium::WebDriver::Wait.new(timeout: 10).until { driver.find_element(:id,  'btnClock') }.click
   
-  
+    sleep(2)
     line_message = []
     clocking_history = driver.find_element(:id, 'ClockingHistory').text
     
