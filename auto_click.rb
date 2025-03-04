@@ -81,7 +81,12 @@ Dir.mktmpdir do |dir|
     puts line_message.join('')
     send_line_notification(line_message.join(''))
   
+  rescue => e
+    puts "Error: #{e}"
+    send_line_notification("Error: #{e}")
   ensure
     driver.quit
   end
 end
+
+
