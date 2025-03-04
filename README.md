@@ -18,6 +18,7 @@
 
 ## 流程圖
 
+```mermaid
 sequenceDiagram
     participant Cron as GitHub Actions (Cron Job)
     participant Runner as Mac Mini (GitHub Actions Runner)
@@ -35,3 +36,4 @@ sequenceDiagram
         Bipo-->>Script: Clock In Confirmation
         Script->> LineMsg : Send Success message
     end
+```
