@@ -14,3 +14,24 @@
 - LINE_USER_ID: 接收 Line 通知的使用者 ID
 - BIPOID: 用於登入 BIPO 的使用者 ID
 - BIPOPASSWORD: 用於登入 BIPO 的密碼
+
+
+## 流程圖
+
+sequenceDiagram
+    participant Cron as GitHub Actions (Cron Job)
+    participant Runner as Mac Mini (GitHub Actions Runner)
+    participant Script as Automation Script
+    participant Bipo as Bipo App
+    participant LineMsg as Line Message API
+
+    Cron->>Runner: Trigger Runner (10:00 & 19:00)
+    Runner->>Script: Execute Auto Clock In Script
+    Script->>Bipo: Send Login Request
+    Bipo-->>Script: Login Response (Success/Failure)
+    
+    alt Login Successful
+        Script->>Bipo: Perform Clock In
+        Bipo-->>Script: Clock In Confirmation
+        Script->> LineMsg : Send Success message
+    end
