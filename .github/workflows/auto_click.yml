@@ -2,7 +2,7 @@ name: Auto Click
 
 on:
   schedule:
-    - cron: '0 2 * * 1-5'  # 星期一 ~ 五早上 10 點 (UTC+8) 執行一次
+    - cron: '55 1 * * 1-5'  # 星期一 ~ 五早上 09:55 (UTC+8) 執行一次
     - cron: '0 11 * * 1-5'  # 星期一 ~ 五下午 7 點 (UTC+8) 執行一次
   workflow_dispatch:
 
