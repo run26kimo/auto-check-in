@@ -10,10 +10,12 @@ jobs:
   run-script:
     # runs-on: ubuntu-latest
     runs-on: self-hosted
+    timeout-minutes: 30  # 設定整個作業的超時時間為 30 分鐘
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      timeout-minutes: 5  # 設定 checkout 步驟的超時時間為 5 分鐘
 
     # - name: Set up Ruby
     #   uses: ruby/setup-ruby@v1
@@ -26,6 +28,7 @@ jobs:
     #     gem install json
 
     - name: Run auto_click script
+      timeout-minutes: 20  # 設定腳本執行的超時時間為 20 分鐘
       env:
         LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
         LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
